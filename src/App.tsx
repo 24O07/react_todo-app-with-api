@@ -7,12 +7,7 @@ import { Header } from './components/Header';
 import { TodoList } from './components/TodoList';
 import { Footer } from './components/Footer';
 import { ErrorNotification } from './components/ErrorNotification';
-
-enum FilterStatus {
-  All = 'all',
-  Active = 'active',
-  Completed = 'completed',
-}
+import { FilterStatus } from './enums/FilterStatus';
 
 enum ErrorMessages {
   None = '',
@@ -160,6 +155,7 @@ export const App: React.FC = () => {
         setLoadingIds(prev => prev.filter(loadingId => loadingId !== id));
       });
   };
+
   const toggleAll = async () => {
     const areAllCompleted = todos.every(todo => todo.completed);
     const newStatus = !areAllCompleted;
@@ -218,7 +214,7 @@ export const App: React.FC = () => {
             />
             <Footer
               filter={filter}
-              setFilter={f => setFilter(f as FilterStatus)}
+              setFilter={setFilter}
               activeCount={activeTodosCount}
               hasCompleted={hasCompleted}
               onClearCompleted={clearCompleted}

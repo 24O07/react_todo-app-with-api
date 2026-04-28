@@ -36,7 +36,7 @@ export const TodoList: React.FC<Props> = ({
           todo={tempTodo}
           isLoading={true}
           onDelete={() => {}}
-          onToggle={() => {}} 
+          onToggle={() => {}}
           onUpdate={() => Promise.resolve()}
         />
       )}

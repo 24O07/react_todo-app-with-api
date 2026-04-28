@@ -1,11 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-
-export enum FilterStatus {
-  All = 'all',
-  Active = 'active',
-  Completed = 'completed',
-}
+import { FilterStatus } from '../enums/FilterStatus';
 
 interface Props {
   filter: FilterStatus;
@@ -29,38 +24,21 @@ export const Footer: React.FC<Props> = ({
       </span>
 
       <nav className="filter" data-cy="Filter">
-        <a
-          href="#/"
-          className={cn('filter__link', {
-            selected: filter === FilterStatus.All,
-          })}
-          onClick={() => setFilter(FilterStatus.All)}
-          data-cy="FilterLinkAll"
-        >
-          All
-        </a>
-
-        <a
-          href="#/active"
-          className={cn('filter__link', {
-            selected: filter === FilterStatus.Active,
-          })}
-          onClick={() => setFilter(FilterStatus.Active)}
-          data-cy="FilterLinkActive"
-        >
-          Active
-        </a>
-
-        <a
-          href="#/completed"
-          className={cn('filter__link', {
-            selected: filter === FilterStatus.Completed,
-          })}
-          onClick={() => setFilter(FilterStatus.Completed)}
-          data-cy="FilterLinkCompleted"
-        >
-          Completed
-        </a>
+        <nav className="filter" data-cy="Filter">
+          {Object.values(FilterStatus).map(status => (
+            <a
+              key={status}
+              href={status === FilterStatus.All ? '#/' : `#/${status}`}
+              className={cn('filter__link', {
+                selected: filter === status,
+              })}
+              onClick={() => setFilter(status)}
+              data-cy={`FilterLink${status[0].toUpperCase() + status.slice(1)}`}
+            >
+              {status[0].toUpperCase() + status.slice(1)}
+            </a>
+          ))}
+        </nav>
       </nav>
       <button
         type="button"
